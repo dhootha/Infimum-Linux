@@ -1,0 +1,7 @@
+Figure out how to license stuff properly.  GPL?  LGPL?  BSD?  What does it all mean?
+
+Do some more testing on some other platforms.
+
+Provide some scripts for fleshing out the mkiniramfs/ tree.  i.e. build busybox and stick it inside with necessary directories and config files and stuff.
+
+Keep moving!
