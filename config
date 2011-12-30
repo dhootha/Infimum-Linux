@@ -1,0 +1,16 @@
+export INFIMUM_HOME=`pwd`
+export ARCH=x86_64
+export BUILD=$INFIMUM_HOME/build
+export DEST=$INFIMUM_HOME/dest
+export LC_ALL=POSIX
+export LIBC=glibc
+export MAKE_FLAGS="-j3"
+export MAKE_INSTALL_FLAGS="DESTDIR=$DEST"
+export PATH=/tools/bin:$PATH
+export SCRIPTS=$INFIMUM_HOME/scripts
+export SRC=$INFIMUM_HOME/src
+export TARGET=$ARCH-infimum-linux-gnu
+
+export BINUTILS_VERSION=2.22
+export GCC_VERSION=4.6.1
+export GLIBC_VERSION=2.14.1

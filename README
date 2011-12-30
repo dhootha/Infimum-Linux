@@ -1,0 +1,32 @@
+build.sh:
+
+This is the main build script.  Edit it up.  A couple useful statements:
+./build.sh clean - cleans out the build and dest directories
+./build.sh strip - strips cruft a la LFS step 5.34
+./build.sh package - packages the dest/tools directory into a squashfs image
+
+config:
+
+This holds all the constants for the build.  It is designed to be run out of this directory, but you can change the INFIMUM_HOME=`pwd` to some other directory if you like.
+
+dummy.c:
+
+A dummy C source file for sanity checks a la LFS
+	<gcc to test> [-B<lib>] dummy.c
+	readelf -l a.out | grep tools
+This should give you /tools/lib64/ld-linux-$ARCH.so.2 (at this time).  Support for other libc libraries will follow.
+
+mkinitramfs.sh:
+
+A script that will take anything in the mkinitramfs directory and package it into an initramfs image.
+It is currently hard-coded to a particular kernel in my home directory, so please change it to your own.
+
+scripts:
+
+This directory contains the bulk of scriptlets for everything.  Right now it contains scripts just for the stage 1 part of LFS.
+I would rather package the stage 1 for building in a QEMU vs chroot environment.
+
+test.sh:
+This runs a QEMU emulator.  Right now it expects a kernel built separately (since I haven't gotten to packaging it yet).
+And again, it uses a hard-coded link to a kernel.  Edit as you please.
+
