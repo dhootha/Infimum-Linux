@@ -1,0 +1,51 @@
+The qemu configs are designed to provide just enough to make a sanitized build environment.  Some of these are
+certainly the author's preference, so I'm including the rationale for everything.  It is also a way for me to
+keep track of what everything does, in an effort to better understand all the different kernel options and
+hardware.  I'm certainly open to discussion for any of these, or if you think any else is vital.
+
+Each of these assumes you're starting with a "make allnoconfig".  Right now, I'm just hard-coding everything in.
+Module support will be added if I have a good enough reason.  I'm including a couple extra things I'm not too
+familiar with, but the kernel config recommends.
+
+Currently, per author's preference, I'm only including kernels that have available RT preempt patches.
+I'm considering 2.6.33.9 as well, just to have a 2.6 line kernel, although XZ support and some other features
+don't seem to be available.
+
+linux-3.0.12 config
+-------------------
+KERNEL_XZ=yes - ~30% smaller than gz/bzip2 can do.  I plan on using xz in as many places as possible for size.
+CONFIG_SYSVIPC - Vital.
+CONFIG_BSD_PROCESS_ACCT - Don't know if it's vital, but never seen a system without it.
+CONFIG_BLK_DEV_INITRD - We want to boot from an initramfs.
+CONFIG_NO_HZ - Reduce timer IRQ overhead.
+CONFIG_PARAVIRT_GUEST - This kernel is designed to be run under QEMU.
+CONFIG_KVM_CLOCK - Author uses KVM, so reducing emulation overhead.
+CONFIG_KVM_GUEST - Author's preference, but you can certainly change the KVM options to Xen if you like.
+CONFIG_HZ_100 - I want an automated build environment, so I don't care about user responsiveness at all.  Maybe I'll run some benchmarks later and find out for sure.
+CONFIG_PCI - QEMU's harddrive emulator is PCI-based.
+CONFIG_BINFMT_ELF - Vital.
+CONFIG_NET - For all intents and purposes, vital.
+CONFIG_PACKET - Vital.
+CONFIG_UNIX - Vital.
+CONFIG_NET_KEY - I don't know what I'm doing, so kernel config told me to do it.
+CONFIG_INET - Vital.  Even X needs this!
+CONFIG_DEVTMPFS - Save having to build another solution like udev or mdev.
+CONFIG_DEVTMPFS_MOUNT - Save having to manually mount, since we'll need to do it anyway.
+CONFIG_BLK_DEV - We want to mount disks, so vital.
+CONFIG_BLK_DEV_LOOP - Loop-based filesystems are handy, like optical disc images or compressed RO images.
+CONFIG_BLK_DEV_RAM - Initramfs rootfs is nice for this setup. =)
+CONFIG_SCSI - For disk support.
+CONFIG_BLK_DEV_SD - Any image passed through any of the -hd* paramaters will show up as an sd* device.
+CONFIG_ATA - For disk support.
+CONFIG_ATA_PIIX - QEMU's emulated ATA hardware.
+CONFIG_EXT4_FS - I suppose this is author's preference.  I'll do some more benchmarks, but it looks like Ext4 is the way to go here.
+CONFIG_DNOTIFY - Kernel config told me to.
+CONFIG_INOTIFY_USER - Kernel config told me to.
+CONFIG_FUSE_FS - Something tells me we're going to need this down the road.  Like for unionfs?
+CONFIG_TMPFS - Initramfs rootfs.
+CONFIG_MISC_FILESYSTEMS - Author wants squashfs in.
+CONFIG_SQUASHFS - Author preference.
+CONFIG_SQUASHFS_XZ - Make squashfs even smaller!
+CONFIG_NLS_CODEPAGE_437 - Good for mounting FAT disks?
+CONFIG_NLS_ISO8859_1 - Good for mounting CD-ROM's?
+CONFIG_NLS_UTF8 - Always good to have.
