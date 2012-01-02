@@ -1,7 +1,7 @@
 source $1
 cd $BUILD
 if [ -z $2 -o $2 == "all" ]; then
-	_fetch
+	#_fetch
 	_prep
 	_build
 	_install

@@ -20,8 +20,13 @@ function _build() {
 	make $MAKE_FLAGS
 }
 function _install() {
-	cd glibc-build
+	cd $BUILD/glibc-build
 	make $MAKE_INSTALL_FLAGS install
+	mkdir -v $DEST/tools/include/rpc
+	mkdir -v $DEST/tools/include/rpcsvc
+	#cp -v $BUILD/glibc-$VERSION/sunrpc/rpc/*.h $DEST/tools/include/rpc
+	#cp -v $BUILD/glibc-$VERSION/sunrpc/rpcsvc/*.h $DEST/tools/include/rpcsvc
+	#cp -v $BUILD/glibc-$VERSION/nis/rpcsvc/*.h $DEST/tools/include/rpcsvc
 }
 function _cleanup() {
 	rm -Rf $BUILD/glibc-$VERSION

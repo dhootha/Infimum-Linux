@@ -10,13 +10,13 @@ function _prep() {
 }
 
 function _build() {
-	cd linux-$VERSION
+	cd $BUILD/linux-$VERSION
 	make mrproper
 	make headers_check
 }
 
 function _install() {
-	cd linux-$VERSION
+	cd $BUILD/linux-$VERSION
 	make INSTALL_HDR_PATH=dest headers_install
 	cp -rv dest/include/* $DEST/tools/include
 }

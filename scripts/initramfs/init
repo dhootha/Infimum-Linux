@@ -1,0 +1,19 @@
+#!/tools/bin/bash
+
+export PATH=/bin:/usr/bin:/sbin:/usr/sbin:/tools/bin
+
+mount -t proc proc /proc
+mount -t sysfs sysfs /sys
+
+#busybox --install -s
+#mdev -s
+mount -t devtmpfs none /dev
+mkdir /dev/pts
+mount -t devpts none /dev/pts
+
+mkdir -p /tools
+mount /dev/sdb /tools
+#mount /dev/sdc /usr/src/packages
+#clear
+
+exec /tools/bin/bash

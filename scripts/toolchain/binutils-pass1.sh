@@ -22,7 +22,7 @@ function _build() {
 
 function _install() {
 	cd $BUILD/binutils-build
-	make $MAKE_INSTALL_FLAGS install
+	make install
 }
 
 function _cleanup() {
